@@ -1,0 +1,39 @@
+{% extends "mkgif/base.html" %}
+
+{% block title %}
+    <title>Make GIF</title>
+{% endblock %}
+
+{% block header %}
+    <h1>Make GIF Animations</h1>
+{% endblock %}
+
+{% block content %}
+    <main>
+			<p>My GIF Animations:</p>
+			<table>
+				{% for anim in anims %}
+				<tr>
+					<td>{{ anim.pk }}</td>
+					<!-- what details mean here?-->
+					<td><a href="{% url 'mkgif:details' anim.pk %}">{{ anim.name }}</a></td>
+                    <td><form><button type="submit" formaction="{% url 'mkgif:delete_animation' anim.pk  %}">Delete {{ anim.pk }}</button></form></td>
+            </tr>
+				{% endfor %}
+			</table>
+			<hr>
+			<!--the action is the index view, where we handle the output -->
+			<!--what enctype allows us to upload?-->
+			<form action="{% url 'mkgif:index' %}" method="POST" enctype="multipart/form-data">
+				<fieldset>
+					<legend><label>Add New GIF Animation</label></legend>
+					<!--I can only submit a form that was from a get request from the same folder:-->
+					{% csrf_token %}
+					<input name="name" type="text" placeholder="Animation name">
+					<!--multiple/several files same time-->
+					<input name="imgs" type="file" multiple>
+					<button>Submit</button>
+				</fieldset>
+			</form>
+		</main>
+{% endblock  %}

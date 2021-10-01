@@ -1,0 +1,24 @@
+{% extends "mkgif/base.html" %}
+
+{% block title %}
+
+        <title>Details page</title>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <body>
+        <h1>{{ anim.name }}</h1>
+        <hr>
+        <p>{{ anim.enqueue }}</p>
+        <!--<div>Gif here:<img src="/media/59/out.gif"></div>-->
+        <div>Gif here:<img src="/media/{{ anim.id }}/out.gif"></div>
+        <hr>
+        {% for image in images %}
+        <div><img src="{{ image.media_url }}"></div>
+        {% endfor %}
+	</body>
+
+{% endblock %}
